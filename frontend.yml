@@ -3,28 +3,28 @@ kind: Deployment
 metadata:
   name: php
   labels:
-    app: cilium
+    app: cilium-testing
     role: web
     tier: frontend
   annotations:
-    kubernetes.io/change-cause: "Deploying PHP WEB V5"
-  namespace: demo
+    kubernetes.io/change-cause: "Deploying PHP WEB Framework V5"
+  namespace: testing
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cilium
+      app: cilium-testing
       role: web
       tier: frontend
   template:
     metadata:
       labels:
-        app: cilium
+        app: cilium-testing
         role: web
         tier: frontend
     spec:
       containers:
-      - name: php
+      - name: php-web
         image: paulczar/gb-frontend:v5
         ports:
         - containerPort: 80
@@ -34,14 +34,14 @@ kind: Service
 metadata:
   name: php
   labels:
-    app: cilium
-    role: web
+    app: cilium-testing
+    role: php-svc
     tier: frontend
-  namespace: demo
+  namespace: testing
 spec:
   type: NodePort
   selector:
-    app: cilium
+    app: cilium-testing
     role: web
     tier: frontend
   ports:

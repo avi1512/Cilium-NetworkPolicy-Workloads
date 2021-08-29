@@ -3,28 +3,28 @@ kind: Deployment
 metadata:
   name: mongo
   labels:
-    app: cilium
+    app: cilium-testing
     role: db
     tier: backend
   annotations:
     kubernetes.io/change-cause: "Deploying Mongo 4.2 Version"
-  namespace: demo
+  namespace: testing
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: cilium
+      app: cilium-testing
       role: db
       tier: backend
   template:
     metadata:
       labels:
-        app: cilium
+        app: cilium-testing
         role: db
         tier: backend
     spec:
       containers:
-      - name: db
+      - name: mongo-db
         image: mongo:4.2
         ports:
         - containerPort: 27017
@@ -34,14 +34,14 @@ kind: Service
 metadata:
   name: mongo
   labels:
-    app: cilium
-    role: db
+    app: cilium-testing
+    role: db-svc
     tier: backend
-  namespace: demo
+  namespace: testing
 spec:
   type: ClusterIP
   selector:
-    app: cilium
+    app: cilium-testing
     role: db
     tier: backend
   ports:
