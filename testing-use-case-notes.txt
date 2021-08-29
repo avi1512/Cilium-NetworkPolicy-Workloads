@@ -1,0 +1,10 @@
+#NetworkPolicy Testing From Default Namespace Through Mongo Pod
+kubectl run test --rm -it --image mongo --command bash
+
+
+#NetworkPolicy Testing From Testing Namespace Through Mongo Pod
+kubectl run test --rm -it --image mongo -n testing --command bash
+
+
+#NetworkPolicy Testing From Testing Namespace Through Mongo Pod With PodSelector Matching Labels
+kubectl run test --rm -it --image mongo -n testing --labels="app=cilium-testing,tier=frontend" --command bash
