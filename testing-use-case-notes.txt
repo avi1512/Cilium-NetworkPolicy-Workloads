@@ -8,3 +8,7 @@ kubectl run test --rm -it --image mongo -n testing --command bash
 
 #NetworkPolicy Testing From Testing Namespace Through Mongo Pod With PodSelector Matching Labels
 kubectl run test --rm -it --image mongo -n testing --labels="app=cilium-testing,tier=frontend" --command bash
+
+
+#Connecting Existing Mongo Pod From New Mongo Pod
+mongo mongodb://mongo.(namespace)
