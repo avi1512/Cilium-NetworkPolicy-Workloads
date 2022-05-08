@@ -1,1 +1,1 @@
-# Cilium-workload-testing
+# Cilium-NetworkPolicy
