@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: oms-egress-blocking
+  namespace: demo
+spec:
+  podSelector:
+    matchLabels:
+      app: myapp               ###### Match Labels key: value ######## 
+  policyTypes:
+    - Egress
+  egress:
+    - to:
+        - ipBlock:              ######### Deny All ############ 
+            cidr: 0.0.0.0/0
+            except:             ######## POD Subnet Range ########## 
+            - 10.192.192.0/20
+            - 10.192.208.0/20
+            - 10.192.224.0/20
+      ports:
+        - protocol: TCP         ####### Allowing Port 1 to 6650 ######## 
+          port: 1
+          endPort: 6650 
+        - protocol: TCP         ####### Allowing Port 6652 to 65534 #######
+          port: 6652
+          endPort: 65534
+        - port: 53              ####### Allowing DNS 53 Port UDP ########## 
+          protocol: UDP
